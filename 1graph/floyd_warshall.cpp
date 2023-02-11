@@ -20,6 +20,7 @@ class Solution {
 	            {
 	                matrix[i][j]=1e9;
 	            }
+                if(i==j)    matrix[i][j]=0;
 	        }
 	    }
 	    for(int via=0;via<n;via++)
