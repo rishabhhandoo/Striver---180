@@ -1,38 +1,22 @@
-#include <bits/stdc++.h> 
-int lengthOfLongestConsecutiveSequence(vector<int> &arr, int n) {
-    
-    unordered_map<int,int> umap;
-    
-    for(int i=0;i<n;i++)
-    {
-        umap[arr[i]]++;
-    }
-    int csize=1;
-    int modif=1;
-    int msize=1;
-    for(int i=0;i<n;i++)
-    {
-        
-        if(umap.find(arr[i] -1) == umap.end() ){
-            csize=1;
-            modif=1;
-         while( umap[arr[i]+modif]>0 ){
-//                 cout<<" value of modif case 1 "<<umap[arr[i]+modif]<<" value of i"<<i<<endl;
-                csize++;
-                modif++;
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int,int> umap;
+        int n = nums.size();
+        if(n==0 || n==1)    return n;
+        for(int i=0;i<n;i++)umap[nums[i]]++;
+        int ans=1;
+        for(int i=0;i<n;i++){
+            if(umap.find(nums[i]-1)==umap.end() && umap.find(nums[i]+1)!=umap.end()){
+                int k=0;
+                while(true){
+                    if(umap.find(nums[i]+k)!=umap.end()){
+                        k++;
+                    }else   break;
+                }
+                ans=max(ans,k);
             }
         }
-        
-//             msize=max(msize,csize);
-//             csize=1;
-//             modif=1;
-//             while( umap[arr[i]-modif]>0 ){
-// //                 cout<<" value of modif case -1 "<<umap[arr[i]-modif]<<" value of i"<<i<<endl;
-//                 csize++;
-//                 modif++;
-//             }
-        
-            msize=max(msize,csize);
+        return ans;
     }
-    return msize;
-}
+};
